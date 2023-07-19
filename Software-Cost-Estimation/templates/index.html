@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Software Cost Estimation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        .custom-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 100% height of the viewport */
+        }
+
+        .card {
+            max-width: 5in;
+        }
+
+        .result-section {
+            background-color: #f8f9fa; /* Light gray background color */
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .result-value {
+            font-style: italic;
+            font-size: medium;
+        }
+
+        .card-header {
+            background-color: #e3f9f0; /* Light green background color */
+            color: #006643; /* Dark green text color */
+            font-size: medium;
+        }
+
+        .btn-primary {
+            background-color: #007965; /* Dark green button color */
+            border-color: #007965; /* Dark green border color */
+        }
+
+        .btn-primary:hover {
+            background-color: #006d59; /* Darker green on hover */
+            border-color: #006d59;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f8f9fa; /* Light gray background color */
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: #006643; /* Dark green text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-container">
+        <div class="card border-primary">
+            <div class="card-header text-center">
+                <h1>Software Cost Estimation</h1>
+            </div>
+            <div class="card-body">
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="lines_of_code" class="form-label">Lines of Code (LOC):</label>
+                        <input type="number" name="lines_of_code" class="form-control" required>
+                        <div class="invalid-feedback">Please enter the Lines of Code.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="team_size" class="form-label">Team Size:</label>
+                        <input type="number" name="team_size" class="form-control" required>
+                        <div class="invalid-feedback">Please enter the Team Size.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cost_per_staff_month" class="form-label">Cost per Staff per Month (USD):</label>
+                        <input type="number" name="cost_per_staff_month" class="form-control" required>
+                        <div class="invalid-feedback">Please enter the Cost per Staff per Month.</div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Estimate Cost</button>
+                    </div>
+                </form>
+
+                {% if result %}
+                <div class="mt-4 result-section">
+                    <div class="text-center">
+                        <h3 class="result-value">Estimated Cost:</h3>
+                        <h3>{{ result.cost | round(2) }} USD</h3>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="result-value">Duration of Project:</h3>
+                        <h3>{{ result.duration_years }} years, {{ result.duration_months }} months, {{ result.duration_days }} days</h3>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; Developed By Abu Sayed Sunny</p>
+    </div>
+    <script>
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+
+            Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
